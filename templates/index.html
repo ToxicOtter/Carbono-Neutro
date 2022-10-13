@@ -9,9 +9,15 @@
 <body>
     <form action="{{url_for('main')}}" method="post" enctype="multipart/form-data">
         <!--<input type="text" name="nome" id="">-->
-        <input type="file" name="file" id="file" multiple="multiple">
+        <input type="file" name="file" id="file" multiple="multiple" accept=".kml">
         <input type="submit">
     </form>
-
+    <div>
+        {% if text %}
+        <h2>{{text}}</h2>
+        {% else %}
+        <h2>Não foi</h2>
+        {% endif %}
+    </div>
 </body>
 </html>
