@@ -12,8 +12,12 @@ app = Flask(__name__) #criação de uma instancia da classe, o nome é um indica
 app.config['UPLOAD_FOLDER'] = r"/home/carbonoFree/.virtualenvs/my-virtualenv/site/files"
 
 
-@app.route("/", methods=["GET","POST"])
+@app.route("/")
 def main():
+    return render_template("index.html")
+
+@app.route("/para-empresa", methods=["GET","POST"])
+def company():
     #Recebe o arquivo KML do usuario, calcula a area e retorna como parametro na renderização do HTML
     text=0
 
@@ -34,8 +38,8 @@ def main():
         #text = (area * 2.353)/10000
         text = area
         #https://stackoverflow.com/questions/23697374/calculate-polygon-area-in-planar-units-e-g-square-meters-in-shapely
+    return render_template("company.html",text=text)
 
-    return render_template("index.html", text=text)
 
 if __name__ == '__main__':
     app.run()
