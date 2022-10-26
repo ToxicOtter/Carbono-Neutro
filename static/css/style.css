@@ -46,7 +46,6 @@ section {
 .first {
     margin: 0;
     background-image: url("/static/images/dia-da-arvore.jpg");
-    /*background-image: url({{ url_for('static', filename='images/dia-da-arvore.jpg') }});*/
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
@@ -142,27 +141,8 @@ figure figcaption h3 {
     padding: 0;
 }
 
-figure figcaption p {
-    font-size: 14px;
-	line-height: 1.75;
-}
-
-figure figcaption button {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 0 0;
-    padding: 10px 30px;
-    background-color: #1abc9c;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 14px;
-}
-
 figcaption .social-img {
-    width: 15px;
+    width: 25px;
 }
 
 section .svg {
@@ -170,7 +150,16 @@ section .svg {
     width: 80%;
 }
 
+.about-us {
+    display: flex;
+    justify-content: space-around;
+}
+
 @media screen and (max-width: 500px) {
+    header {
+        position: relative;
+    }
+
     header a {
       float: none;
       display: block;
@@ -178,5 +167,29 @@ section .svg {
     }
     .direita {
       float: none;
+    }
+    .first h1 {
+        font-size: 30px;
+    }
+    .first div {
+        position: relative;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 1020px){
+    .about-us{
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .figure {
+        display: flex;
+        justify-content: left;
+        align-items:flex-start;
+    }
+    .figure figcaption {
+        position: relative;
+        bottom: 0;
     }
 }
