@@ -5,19 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <form action="{{url_for('main')}}" method="post" enctype="multipart/form-data">
-        <!--<input type="text" name="nome" id="">-->
-        <input type="file" name="file" id="file" multiple="multiple" accept=".kml">
-        <input type="submit">
-    </form>
-    <div>
-        {% if text %}
-        <h2>{{ text }}</h2>
-        {% else %}
-        <h2>Nenhuma area</h2>
-        {% endif %}
-    </div>
+    <header>
+        <a href="#">Logo</a>
+        <div class="direita">
+            <a href="#">PARA EMPRESA</a>
+            <a href="#">PARA VOCÊ</a>
+            <a href="#">CONTATO</a>    
+        </div>
+    </header>
+
+    <section class="first">
+        <div>
+            <h1>CARBONO <br> ZERO</h1>
+            <p>Solução para indivíduos e empresas que querem entender sua pegada de carbono <br> e como compensá-la.</p>
+        </div>
+    </section>
+    <section class="content">
+        <form action="{{url_for('main')}}" method="post" enctype="multipart/form-data">
+            <!--<input type="text" name="nome" id="">-->
+            <input type="file" name="file" id="file" multiple="multiple" accept=".kml">
+            <input type="submit">
+        </form>
+        <div>
+            {% if text %}
+            <h2>{{ text }}</h2>
+            {% else %}
+            <h2>Nenhuma area</h2>
+            {% endif %}
+        </div>
+    </section>
 </body>
 </html>
