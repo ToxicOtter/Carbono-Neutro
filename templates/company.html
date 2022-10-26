@@ -18,6 +18,7 @@
     </header>
     <main>
         <form action="{{url_for('combustivel')}}" method="post" enctype="multipart/form-data">
+            <h2>Escopo 1</h2>
             <label for="tipo_combustivel">Tipo de combustivel</label>
             <select name="tipo_combustivel" id="">
                 <option value=""></option>
@@ -50,6 +51,35 @@
             </select>
             <label for="qtd_combs">Quantidade consumida</label>
             <input type="number" name="qtd_combs" id="">
+
+            <h2>Escopo 2</h2>
+            <p>Ano de referência: 2021</p>
+
+            <label for="ener_jan">Consumo de energia de janeiro</label>
+            <input type="number" name="ener_jan" id=""><br>
+            <label for="ener_fev">Consumo de energia de fevereiro</label>
+            <input type="number" name="ener_fev" id=""><br>
+            <label for="ener_mar">Consumo de energia de março</label>
+            <input type="number" name="ener_mar" id=""><br>
+            <label for="ener_abr">Consumo de energia de abril</label>
+            <input type="number" name="ener_abr" id=""><br>
+            <label for="ener_mai">Consumo de energia de maio</label>
+            <input type="number" name="ener_mai" id=""><br>
+            <label for="ener_jun">Consumo de energia de junho</label>
+            <input type="number" name="ener_jun" id=""><br>
+            <label for="ener_jul">Consumo de energia de julho</label>
+            <input type="number" name="ener_jul" id=""><br>
+            <label for="ener_ago">Consumo de energia de agosto</label>
+            <input type="number" name="ener_ago" id=""><br>
+            <label for="ener_set">Consumo de energia de setembro</label>
+            <input type="number" name="ener_set" id=""><br>
+            <label for="ener_out">Consumo de energia de outubro</label>
+            <input type="number" name="ener_out" id=""><br>
+            <label for="ener_nov">Consumo de energia de novembro</label>
+            <input type="number" name="ener_nov" id=""><br>
+            <label for="ener_dez">Consumo de energia de dezembro</label>
+            <input type="number" name="ener_dez" id=""><br>
+
             <input type="submit" value="Enviar">
         </form>
 

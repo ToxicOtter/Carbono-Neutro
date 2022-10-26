@@ -100,7 +100,18 @@ def combustivel():
                 gasto = cons * (1.817/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
             case "residuos":
                 gasto = cons * (1.161/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
-        print(gasto)
+        gasto += float(request.form["ener_jan"])*0.1164
+        gasto += float(request.form["ener_fev"])*0.08200
+        gasto += float(request.form["ener_mar"])*0.0673
+        gasto += float(request.form["ener_abr"])*0.0764
+        gasto += float(request.form["ener_mai"])*0.0883
+        gasto += float(request.form["ener_jun"])*0.1491
+        gasto += float(request.form["ener_jul"])*0.1634
+        gasto += float(request.form["ener_ago"])*0.1743
+        gasto += float(request.form["ener_set"])*0.1699
+        gasto += float(request.form["ener_out"])*0.1786
+        gasto += float(request.form["ener_nov"])*0.1484
+        gasto += float(request.form["ener_dez"])*0.1029
     return render_template("company.html", gasto=gasto)
 
 
