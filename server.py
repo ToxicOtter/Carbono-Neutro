@@ -40,6 +40,69 @@ def company():
         #https://stackoverflow.com/questions/23697374/calculate-polygon-area-in-planar-units-e-g-square-meters-in-shapely
     return render_template("company.html",text=text)
 
+@app.route("/combustivel",methods=["GET","POST"])
+def combustivel():
+    gasto = 0
+    tipo_combs = request.form["tipo_combustivel"]
+    cons = float(request.form["qtd_combs"])
+
+    if (request.method == "POST"):
+        match tipo_combs:
+            case "acetileno":
+                gasto = cons*(3/1000) # gasto = total kg co2 gerado pela queima de 1kg de acetileno
+            case "alcatrão":
+                gasto = cons * (2.888/ 1000) # gasto= total kg co2 gerado pela queima de 1m3 de alcatrao
+            case "asfaltos":
+                gasto = cons * (3.389/ 1000)  # gasto = total kg co2 gerado pela queima de 1m3 de alcatrao
+            case "carvão_metalúrgico":
+                gasto = cons * (2.543/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "coque_petroleo":
+                gasto = cons * (3.563/ 1000)  # gasto = total kg co2 gerado pela queima de 1m3
+            case "etano":
+                gasto = cons * (2.858/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "gas_refinaria":
+                gasto = cons * (2.850/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "gas_natural_Seco":
+                gasto = cons * (2.07/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "gas_natural_umido":
+                gasto = cons * (2.333/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "gas_aut_pura":
+                gasto = cons * (2.24/ 1000)  # gasto = total kg co2 gerado pela queima de 1l
+            case "gas_aviao":
+                gasto = cons * (2.26/ 1000)  # gasto = total kg co2 gerado pela queima de 1l
+            case "Liq_gas_natural":
+                gasto = cons * (2.836/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "lubrificantes":
+                gasto = cons * (2.72/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "nafta":
+                gasto = cons * (2.291/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "oleo_diesel":
+                gasto = cons * (2.63/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "oleo_combustivel":
+                gasto = cons * (3.11/ 1000)  # gasto = total kg co2 gerado pela queima de 1l
+            case "oleol_residual":
+                gasto = cons * (2.947/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "petroloe_bruto":
+                gasto = cons * (2.931/ 1000)  # gasto = total kg co2 gerado pela queima de 1m3
+            case "querosene_aviação":
+                gasto = cons * (3.113/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "res_industriais":
+                gasto = cons * (143.000/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "etanol":
+                gasto = cons * (1.58/ 1000)  # gasto = total kg co2 gerado pela queima de 1l
+            case "biodiesel_b100":
+                gasto = cons * (2.46/ 1000)  # gasto = total kg co2 gerado pela queima de 1l
+            case "biogas":
+                gasto = cons * (2.754/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "carvão_vegetal":
+                gasto = cons * (2.886/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "lenha":
+                gasto = cons * (1.817/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+            case "residuos":
+                gasto = cons * (1.161/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+        print(gasto)
+    return render_template("company.html", gasto=gasto)
+
 
 if __name__ == '__main__':
     app.run()

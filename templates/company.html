@@ -17,8 +17,51 @@
         </div>
     </header>
     <main>
+        <form action="{{url_for('combustivel')}}" method="post" enctype="multipart/form-data">
+            <label for="tipo_combustivel">Tipo de combustivel</label>
+            <select name="tipo_combustivel" id="">
+                <option value=""></option>
+                <option value="acetileno">Acetileno</option>
+                <option value="alcatrão">Alcatrão</option>
+                <option value="asfaltos">Asfaltos</option>
+                <option value="carvão_metalúrgico">Carvão metalúrgico</option>
+                <option value="coque_petroleo">Coque petroleo</option>
+                <option value="etano">Etano</option>
+                <option value="gas_refinaria">Gás refinaria</option>
+                <option value="gas_natural_Seco">Gás natural seco</option>
+                <option value="gas_natural_umido">Gás natural úmido</option>
+                <option value="gas_aut_pura">Gás aut pura</option>
+                <option value="gas_aviao">Gás avião</option>
+                <option value="Liq_gas_natural">Liq gás natural</option>
+                <option value="lubrificantes">Lubrificantes</option>
+                <option value="nafta">Nafta</option>
+                <option value="oleo_diesel">Oleo diesel</option>
+                <option value="oleo_combustivel">Oleo combustivel</option>
+                <option value="oleol_residual">Oleo residual</option>
+                <option value="petroloe_bruto">Petróleo bruto</option>
+                <option value="querosene_aviação">Querosene aviação</option>
+                <option value="res_industriais">Resíduos industriais</option>
+                <option value="etanol">Etanol</option>
+                <option value="biodiesel_b100">Biodiesel B100</option>
+                <option value="biogas">Biogás</option>
+                <option value="carvão_vegetal">Carvão vegetal</option>
+                <option value="lenha">Lenha</option>
+                <option value="residuos">Resíduos</option>
+            </select>
+            <label for="qtd_combs">Quantidade consumida</label>
+            <input type="number" name="qtd_combs" id="">
+            <input type="submit" value="Enviar">
+        </form>
+
+        <div>
+            {% if gasto %}
+            <h2>{{ gasto }}</h2>
+            {% endif %}
+        </div>
+
+
+        <!--
         <form action="{{url_for('company')}}" method="post" enctype="multipart/form-data">
-            <!--<input type="text" name="nome" id="">-->
             <input type="file" name="file" id="file" multiple="multiple" accept=".kml">
             <input type="submit">
         </form>
@@ -28,7 +71,7 @@
             {% else %}
             <h2>Nenhuma area</h2>
             {% endif %}
-        </div>
+        </div>-->
     </main>
 </body>
 </html>
