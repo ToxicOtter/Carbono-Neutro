@@ -4,18 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pessoal</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/company.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/favicon.ico') }}">
+    
 </head>
 <body>
     <header>
-        <a href="{{ url_for('main') }}">Logo</a>
+        <a href="{{ url_for('main') }}">Carbono Zero</a>
         <div class="direita">
             <a href="{{ url_for('company') }}">PARA EMPRESA</a>
             <a href="{{ url_for('main') }}">PAGINA INICIAL</a>    
         </div>
     </header>
     <main>
+        <div class="explica">
+        <p>É fundamental que medidas sejam adotadas por todos a fim de mitigar as consequências e buscar a neutralização de carbono, desacelerando o aquecimento global e contribuindo para a qualidade de vida.</p>
+        <br>
+        <p>Isso pode ser feito por meio de diferentes ações, como:</p>
+        <ul>
+            <li>Utilização de energias renováveis;</li>
+            <li>Descarte correto de resíduos e compostagem de orgânicos;</li>
+            <li>Uso eficiente dos recursos naturais (ex. água, minerais, alimentos);</li>
+            <li>Desenvolvimento de produtos e processos produtivos mais eficientes no uso de recursos naturais;</li>
+            <li>Redução do consumo supérfluo de quaisquer itens (alimentação, vestuário);</li>
+            <li>Plantio de árvores;</li>
+        </ul>
+
+        <p>Para calcular a pegada de carbono individual, utilize o sistema a seguir, tendo como base o GHG Protocol Brasileiro, fornecido e divulgado pela FGV</p>
+        <p>Para mais informações sobre o protocolo, acesse: </p>
+        <br>
+        <img src="{{ url_for('static',filename='images/ghg.png') }}" alt="">
+        <br>
+        <a href="https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol">https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol</a>
+
+        </div>
         <form action="{{url_for('personal')}}" method="post" enctype="multipart/form-data" class="calcule">
             <h2>Cálculo de emissão</h2>
             <div>
@@ -45,7 +68,7 @@
             <p>Para compensar essa emissão, você pode plntar <span>{{ arvore }}</span> árvores(s).</p>
             <p>Caso você possua um terreno ou área que deseja plantar, pode inserir a metragem ou adicionar um arquivo KML gerado no Google Earth.</p>
 
-            <form action="{{url_for('company')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url_for('personalRes')}}" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" id="file" multiple="multiple" accept=".kml" required="required">
                 <input type="submit">
             </form>

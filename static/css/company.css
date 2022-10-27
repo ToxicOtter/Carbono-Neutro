@@ -149,6 +149,15 @@ span {
     border-radius: 20px;
 }
 
+form p {
+    font-size: 13px;
+}
+
+.explica {
+    padding: 20px 50px;
+}
+
+
 @media screen and (max-width: 1020px){
     label, input {
         display: flex;

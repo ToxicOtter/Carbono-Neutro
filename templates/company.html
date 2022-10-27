@@ -4,20 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Empresa</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/company.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/favicon.ico') }}">
 </head>
 <body>
     <header>
-        <a href="{{ url_for('main') }}">Logo</a>
+        <a href="#">Carbono Zero</a>
         <div class="direita">
             <a href="{{ url_for('personal') }}">PARA VOCÊ</a>
-            <a href="{{ url_for('main') }}">PAGINA INICIAL</a>    
+            <a href="{{ url_for('main') }}">PAGINA INICIAL</a>
         </div>
     </header>
     <main>
+        <div class="explica">
+            <p>Ser uma empresa carbono neutro significa calcular e monitorar o total das emissões de CO2 que a atividade realizada está produzindo, além de tentar reduzir esse impacto ao máximo. Aquelas emissões que não puderem ser extintas devem ser compensadas por outros meios, como a compra de créditos de carbono e o replantio de árvores.</p><br>
+            <p>A compensação por crédito de carbono se dá através da recuperação e preservação de florestas e mares, que tem uma função essencial no sequestro de CO2 da atmosfera e na diminuição do aquecimento global.</p><br>
+            <p>Para calcular a pegada de carbono de sua empresa, disponibilizamos uma demonstração da ferramenta Carbon Free, tendo como base o GHG Protocol Brasileiro, fornecido e divulgado pela FGV.</p><br>
+            <p>Para o cálculo completo, detalhado e específico para sua empresa, favor entrar em contato com um de nossos colaboradores.</p>
+        
+            <p>Para mais informações sobre o protocolo, acesse: </p>
+        <br>
+        <img src="{{ url_for('static',filename='images/ghg.png') }}" alt="">
+        <br>
+        <a href="https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol">https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol</a>
+        
+        </div>
+
+        
         <form action="{{url_for('combustivel')}}" method="post" enctype="multipart/form-data" class="calcule" id="calcule">
-            <h2>Escopo 1</h2>
+            <h2>Escopo 1: Combustão Estacionária</h2>
+            <p>Combustível utilizado pela empresa para produção</p>
             <div class="scope1">
             <label for="tipo_combustivel">Tipo de combustivel</label>
             <select name="tipo_combustivel" id="" required="required">
@@ -57,6 +74,7 @@
 
             <div>
             <h2>Escopo 1: Emissão fugitiva</h2>
+            <p>Troca de gases de equipamentos (ar-condicionado) - Toneladas por ano</p>
             <label for="co2">CO2</label>
             <input type="number" name="co2" id="" required="required"><br>
             <label for="hfc_23">HFC 23</label>
@@ -69,6 +87,7 @@
 
             <div>
             <h2>Escopo 2</h2>
+            <p>Quantidade de energia consumida pela empresa nos meses do ano.</p>
             <p>Ano de referência: 2021</p>
 
             <label for="ener_jan">Consumo de energia de janeiro</label>
@@ -112,7 +131,7 @@
             </form>
             <div>
                 {% if text %}
-                <h2>{{ text }}</h2>
+                <h2>A área inserida corresponde à <span>{{ text }}</span>m2.</h2>
                 {% else %}
                 <h2>Nenhuma area</h2>
                 {% endif %}

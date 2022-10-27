@@ -6,6 +6,7 @@ from flask import Flask, render_template, request
 from fiona.drvsupport import supported_drivers
 from pyproj import Geod
 
+gasto_final = [0]
 
 app = Flask(__name__) #criação de uma instancia da classe, o nome é um indicativo para o Python olhar em busca de arquivos
 
@@ -20,36 +21,26 @@ def main():
 def company():
     #Recebe o arquivo KML do usuario, calcula a area e retorna como parametro na renderização do HTML
     text=0
+    gasto = round(gasto_final[0],2)
 
     if (request.method == "POST"):
         file = request.files['file']
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], "outro_teste.kml"))
 
 
-        #gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
         supported_drivers['KML'] = 'rw'
         my_map = gpd.read_file(r'/home/carbonoFree/.virtualenvs/my-virtualenv/site/files/outro_teste.kml', driver='KML')
-        #my_map = gpd.read_file(r'/files/outro_teste.kml', driver='KML')
-        #text = shape(my_map.loc[0,'geometry']).area
 
 
         geod = Geod(ellps="WGS84")
         poly = wkt.loads(str(my_map.loc[0,'geometry']))
         area = abs(geod.geometry_area_perimeter(poly)[0])
-        #text = (area * 2.353)/10000
         text = area
-        #https://stackoverflow.com/questions/23697374/calculate-polygon-area-in-planar-units-e-g-square-meters-in-shapely
-    return render_template("company.html",text=text)
+    return render_template("company.html",text=text,gasto=gasto)
 
 @app.route("/combustivel",methods=["GET","POST"])
 def combustivel():
     gasto = 0
-    tipo_combs = request.form["tipo_combustivel"]
-    cons = float(request.form["qtd_combs"])
-
-    #for tipo, qtd in zip(request.form.getlist('tipo_combustivel'),request.form.getlist('qtd_combs')):
-    #    print(tipo)
-    #    print(qtd)
 
     if (request.method == "POST"):
         for tipo, qtd in zip(request.form.getlist('tipo_combustivel'),request.form.getlist('qtd_combs')):
@@ -127,6 +118,8 @@ def combustivel():
 
     
         gasto = round(gasto,2)
+    gasto_final.clear()
+    gasto_final.append(gasto)
     arvore = int(gasto / 0.165105)
     return render_template("company.html", gasto=gasto, arvore=arvore)
 
@@ -140,8 +133,31 @@ def personal():
         gasto += float(request.form["botija"])*0.455
         gasto += float(request.form["condicionado"])*0.5
         gasto += float(request.form["eletricidade"])*med_elet
+    gasto_final.clear()
+    gasto_final.append(gasto)
     arvore = int(gasto / 0.165105)
     return render_template('personal.html',gasto=gasto, arvore=arvore)
+
+@app.route("/personal-res",methods=["GET","POST"])
+def personalRes():
+    #Recebe o arquivo KML do usuario, calcula a area e retorna como parametro na renderização do HTML
+    text=0
+    gasto = round(gasto_final[0],2)
+
+    if (request.method == "POST"):
+        file = request.files['file']
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], "outro_teste.kml"))
+
+
+        supported_drivers['KML'] = 'rw'
+        my_map = gpd.read_file(r'/home/carbonoFree/.virtualenvs/my-virtualenv/site/files/outro_teste.kml', driver='KML')
+
+
+        geod = Geod(ellps="WGS84")
+        poly = wkt.loads(str(my_map.loc[0,'geometry']))
+        area = abs(geod.geometry_area_perimeter(poly)[0])
+        text = area
+    return render_template("personal.html",text=text,gasto=gasto)
 
 if __name__ == '__main__':
     app.run()
