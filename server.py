@@ -29,6 +29,7 @@ def company():
         #gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
         supported_drivers['KML'] = 'rw'
         my_map = gpd.read_file(r'/home/carbonoFree/.virtualenvs/my-virtualenv/site/files/outro_teste.kml', driver='KML')
+        #my_map = gpd.read_file(r'/files/outro_teste.kml', driver='KML')
         #text = shape(my_map.loc[0,'geometry']).area
 
 
@@ -124,6 +125,18 @@ def combustivel():
     arvore = int(gasto / 0.165105)
     return render_template("company.html", gasto=gasto, arvore=arvore)
 
+@app.route("/personal",methods=["GET","POST"])
+def personal():
+    gasto = 0
+    med_elet = (0.1164 + 0.08200 + 0.0673 + 0.0764 + 0.0883 + 0.1491 + 0.1634 + 0.1743 + 0.1699 + 0.1786 + 0.1484 + 0.1029)/12
+
+    if (request.method == "POST"):
+        gasto += float(request.form["aviao"]) * 0.17
+        gasto += float(request.form["botija"])*0.455
+        gasto += float(request.form["condicionado"])*0.5
+        gasto += float(request.form["eletricidade"])*med_elet
+    arvore = int(gasto / 0.165105)
+    return render_template('personal.html',gasto=gasto, arvore=arvore)
 
 if __name__ == '__main__':
     app.run()

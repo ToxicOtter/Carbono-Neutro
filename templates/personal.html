@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/company.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('main') }}">Logo</a>
+        <div class="direita">
+            <a href="{{ url_for('company') }}">PARA EMPRESA</a>
+            <a href="{{ url_for('main') }}">PAGINA INICIAL</a>    
+        </div>
+    </header>
+    <main>
+        <form action="{{url_for('personal')}}" method="post" enctype="multipart/form-data" class="calcule">
+            <h2>Cálculo de emissão</h2>
+            <div>
+                <label for="aviao">Quantas viagens de avião você faz por ano?</label>
+                <input type="number" name="aviao" id="">
+            </div>
+
+            <div>
+                <label for="botija">Qual seu consumo médio de botijões de gás por ano?</label>
+                <input type="number" name="botija" id="">
+            </div>
+            <div>
+                <label for="condicionado">Quantos aparelhos de arcondicionado você tem em casa?</label>
+                <input type="number" name="condicionado" id="">
+            </div>
+            <div>
+                <label for="eletricidade">Qual seu gasto médio de eletricidade, em KWh?</label>
+                <input type="number" name="eletricidade" id="">
+            </div>
+
+            <input type="submit" value="ENVIAR">
+        </form>
+
+        <div class="results">
+            {% if gasto %}
+            <h2>Você produziu um total de <span>{{ gasto }}</span> toneladas de carbono.</h2>
+            <p>Para compensar essa emissão, você pode plntar <span>{{ arvore }}</span> árvores(s).</p>
+            <p>Caso você possua um terreno ou área que deseja plantar, pode inserir a metragem ou adicionar um arquivo KML gerado no Google Earth.</p>
+
+            <form action="{{url_for('company')}}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file" multiple="multiple" accept=".kml">
+                <input type="submit">
+            </form>
+            <div>
+                {% if text %}
+                <h2>{{ text }}</h2>
+                {% else %}
+                <h2>Nenhuma area</h2>
+                {% endif %}
+            </div>
+
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>
