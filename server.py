@@ -100,6 +100,12 @@ def combustivel():
                 gasto = cons * (1.817/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
             case "residuos":
                 gasto = cons * (1.161/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+
+        gasto += float(request.form["co2"])*(1/ 1000)
+        gasto += float(request.form["hfc_23"])*(12400/ 1000)
+        gasto += float(request.form["n2o"])*(265/ 1000)
+        gasto += float(request.form["ch4"])*(28/ 1000)
+        
         gasto += float(request.form["ener_jan"])*0.1164
         gasto += float(request.form["ener_fev"])*0.08200
         gasto += float(request.form["ener_mar"])*0.0673
@@ -112,7 +118,11 @@ def combustivel():
         gasto += float(request.form["ener_out"])*0.1786
         gasto += float(request.form["ener_nov"])*0.1484
         gasto += float(request.form["ener_dez"])*0.1029
-    return render_template("company.html", gasto=gasto)
+
+    
+        gasto = round(gasto,2)
+    arvore = int(gasto / 0.165105)
+    return render_template("company.html", gasto=gasto, arvore=arvore)
 
 
 if __name__ == '__main__':

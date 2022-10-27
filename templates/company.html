@@ -9,16 +9,16 @@
 </head>
 <body>
     <header>
-        <a href="#">Logo</a>
+        <a href="{{ url_for('main') }}">Logo</a>
         <div class="direita">
-            <a href="#">PARA EMPRESA</a>
             <a href="#">PARA VOCÊ</a>
-            <a href="#">CONTATO</a>    
+            <a href="{{ url_for('main') }}">PAGINA INICIAL</a>    
         </div>
     </header>
     <main>
-        <form action="{{url_for('combustivel')}}" method="post" enctype="multipart/form-data">
+        <form action="{{url_for('combustivel')}}" method="post" enctype="multipart/form-data" class="calcule">
             <h2>Escopo 1</h2>
+            <div>
             <label for="tipo_combustivel">Tipo de combustivel</label>
             <select name="tipo_combustivel" id="">
                 <option value=""></option>
@@ -48,10 +48,24 @@
                 <option value="carvão_vegetal">Carvão vegetal</option>
                 <option value="lenha">Lenha</option>
                 <option value="residuos">Resíduos</option>
-            </select>
+            </select><br>
             <label for="qtd_combs">Quantidade consumida</label>
-            <input type="number" name="qtd_combs" id="">
+            <input type="number" name="qtd_combs" id="" value="0" step=".01" min="0" required="required">
+            </div>
 
+            <div>
+            <h2>Escopo 1: Emissão fugitiva</h2>
+            <label for="co2">CO2</label>
+            <input type="number" name="co2" id=""><br>
+            <label for="hfc_23">HFC 23</label>
+            <input type="number" name="hfc_23" id=""><br>
+            <label for="n2o">N2O</label>
+            <input type="number" name="n2o" id=""><br>
+            <label for="ch4">CH4</label>
+            <input type="number" name="ch4" id=""><br>
+            </div>
+
+            <div>
             <h2>Escopo 2</h2>
             <p>Ano de referência: 2021</p>
 
@@ -79,29 +93,31 @@
             <input type="number" name="ener_nov" id=""><br>
             <label for="ener_dez">Consumo de energia de dezembro</label>
             <input type="number" name="ener_dez" id=""><br>
+            </div>
 
-            <input type="submit" value="Enviar">
+            <input type="submit" value="ENVIAR">
         </form>
 
-        <div>
+        <div class="results">
             {% if gasto %}
-            <h2>{{ gasto }}</h2>
+            <h2>Você produziu um total de <span>{{ gasto }}</span> toneladas de carbono.</h2>
+            <p>Para compensar essa emissão, você pode plntar <span>{{ arvore }}</span> árvores(s).</p>
+            <p>Caso você possua um terreno ou área que deseja plantar, pode inserir a metragem ou adicionar um arquivo KML gerado no Google Earth.</p>
+
+            <form action="{{url_for('company')}}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file" multiple="multiple" accept=".kml">
+                <input type="submit">
+            </form>
+            <div>
+                {% if text %}
+                <h2>{{ text }}</h2>
+                {% else %}
+                <h2>Nenhuma area</h2>
+                {% endif %}
+            </div>
+
             {% endif %}
         </div>
-
-
-        <!--
-        <form action="{{url_for('company')}}" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" id="file" multiple="multiple" accept=".kml">
-            <input type="submit">
-        </form>
-        <div>
-            {% if text %}
-            <h2>{{ text }}</h2>
-            {% else %}
-            <h2>Nenhuma area</h2>
-            {% endif %}
-        </div>-->
     </main>
 </body>
 </html>

@@ -13,7 +13,7 @@
         <div class="direita">
             <a href="{{ url_for('company') }}">PARA EMPRESA</a>
             <a href="#">PARA VOCÊ</a>
-            <a href="#">CONTATO</a>    
+            <a href="#about-us">CONTATO</a>    
         </div>
     </header>
 
@@ -29,7 +29,7 @@
     <section>
         <img src="{{ url_for('static',filename='images/hand.svg') }}" alt="" class="svg">
     </section>
-    <section class="about-us">
+    <section class="about-us" id="about-us">
         <figure class="image-block">
             <h1>Isaac</h1>
             <img class="pfl-pic" src="https://media-exp1.licdn.com/dms/image/C5603AQEJMAnsaa6u4Q/profile-displayphoto-shrink_800_800/0/1653406121168?e=1672272000&v=beta&t=KkoaRos_V8Xbp3_Oh1aJuTI_6IOp0UEx5haltWtOEhg" alt="" />
@@ -47,14 +47,14 @@
         </figure>
         <figure class="image-block">
             <h1>João</h1>
-            <img class="pfl-pic" src="https://i.pinimg.com/736x/d3/50/79/d350796acb8ff0b0c6c07290acab806b.jpg" alt="" />
+            <img class="pfl-pic" src="https://media-exp1.licdn.com/dms/image/D4D03AQHGOymRw-ZRvw/profile-displayphoto-shrink_800_800/0/1666865134952?e=1672272000&v=beta&t=i4LpWUhmCvr7Rt0PO7Zz1-1arMXsUEw9hCpK-xnTd8E" alt="" />
             <figcaption>
                 <h3>Mais informações</h3>
                 <div class="social-media">
                     <a href="#" target="_blank">
                         <img src="{{ url_for('static',filename='images/github.png') }}" alt="" class="social-img github">
                     </a>
-                    <a href="#" target="_blank">
+                    <a href="https://www.linkedin.com/in/joão-cardoso-769a531b9/" target="_blank">
                         <img src="{{ url_for('static',filename='images/linkedin.png') }}" alt="" class="social-img linkedin">
                     </a>
                 </div>
