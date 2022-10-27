@@ -66,10 +66,6 @@ section {
     font-size: 15px;
 }
 
-.content {
-    background-color: green;
-}
-
 .about-us {
     position: relative;
 	display: flex;
@@ -150,13 +146,42 @@ figcaption .social-img {
 }
 
 section .svg {
-    height: 80%;
-    width: 80%;
+    height: 60%;
+    width: 60%;
 }
 
 .about-us {
     display: flex;
     justify-content: space-around;
+}
+
+
+.content {
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.text {
+    display: inline-block;
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+    color: white;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 15px;
+}
+
+.explanation {
+    display: flex;
+    justify-content: space-around;
+}
+
+.explanation .imagee {
+    width: 60%;
+    height: 60%;
 }
 
 @media screen and (max-width: 500px) {
@@ -210,5 +235,13 @@ section .svg {
     }
     .social-media a {
         overflow: hidden;
+    }
+    .explanation {
+        flex-direction: column;
+        align-items: center;
+    }
+    .explanation .imagee {
+        width: 100%;
+        height: 100%;
     }
 }
