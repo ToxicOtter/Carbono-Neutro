@@ -125,6 +125,8 @@ def combustivel():
     gasto_final.append(gasto)
     arvore = int(gasto / 0.165105)
     cred = gasto * 68.745
+    cred_final.clear()
+    cred_final.append(cred)
     return render_template("company.html", gasto=round(gasto,2), arvore=arvore, cred=round(cred,2))
 
 @app.route("/personal",methods=["GET","POST"])
@@ -142,6 +144,8 @@ def personal():
     gasto_final.append(gasto)
     arvore = int(gasto / 0.165105)
     cred = gasto * 68.745
+    cred_final.clear()
+    cred_final.append(cred)
     return render_template('personal.html',gasto=round(gasto,2), arvore=arvore, cred=round(cred,2))
 
 @app.route("/personal-res",methods=["GET","POST"])
