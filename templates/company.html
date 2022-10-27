@@ -16,12 +16,11 @@
         </div>
     </header>
     <main>
-        <form action="{{url_for('combustivel')}}" method="post" enctype="multipart/form-data" class="calcule">
+        <form action="{{url_for('combustivel')}}" method="post" enctype="multipart/form-data" class="calcule" id="calcule">
             <h2>Escopo 1</h2>
-            <div>
+            <div class="scope1">
             <label for="tipo_combustivel">Tipo de combustivel</label>
-            <select name="tipo_combustivel" id="">
-                <option value=""></option>
+            <select name="tipo_combustivel" id="" required="required">
                 <option value="acetileno">Acetileno</option>
                 <option value="alcatrão">Alcatrão</option>
                 <option value="asfaltos">Asfaltos</option>
@@ -50,19 +49,22 @@
                 <option value="residuos">Resíduos</option>
             </select><br>
             <label for="qtd_combs">Quantidade consumida</label>
-            <input type="number" name="qtd_combs" id="" value="0" step=".01" min="0" required="required">
+            <input type="number" name="qtd_combs" id="" step=".01" min="0" required="required">
+
+            <div id="incluir"></div>
+            <button class="plus" type="button" onclick="adicionar()">+</button>
             </div>
 
             <div>
             <h2>Escopo 1: Emissão fugitiva</h2>
             <label for="co2">CO2</label>
-            <input type="number" name="co2" id=""><br>
+            <input type="number" name="co2" id="" required="required"><br>
             <label for="hfc_23">HFC 23</label>
-            <input type="number" name="hfc_23" id=""><br>
+            <input type="number" name="hfc_23" id="" required="required"><br>
             <label for="n2o">N2O</label>
-            <input type="number" name="n2o" id=""><br>
+            <input type="number" name="n2o" id="" required="required"><br>
             <label for="ch4">CH4</label>
-            <input type="number" name="ch4" id=""><br>
+            <input type="number" name="ch4" id="" required="required"><br>
             </div>
 
             <div>
@@ -70,29 +72,29 @@
             <p>Ano de referência: 2021</p>
 
             <label for="ener_jan">Consumo de energia de janeiro</label>
-            <input type="number" name="ener_jan" id=""><br>
+            <input type="number" name="ener_jan" id="" required="required"><br>
             <label for="ener_fev">Consumo de energia de fevereiro</label>
-            <input type="number" name="ener_fev" id=""><br>
+            <input type="number" name="ener_fev" id="" required="required"><br>
             <label for="ener_mar">Consumo de energia de março</label>
-            <input type="number" name="ener_mar" id=""><br>
+            <input type="number" name="ener_mar" id="" required="required"><br>
             <label for="ener_abr">Consumo de energia de abril</label>
-            <input type="number" name="ener_abr" id=""><br>
+            <input type="number" name="ener_abr" id="" required="required"><br>
             <label for="ener_mai">Consumo de energia de maio</label>
-            <input type="number" name="ener_mai" id=""><br>
+            <input type="number" name="ener_mai" id="" required="required"><br>
             <label for="ener_jun">Consumo de energia de junho</label>
-            <input type="number" name="ener_jun" id=""><br>
+            <input type="number" name="ener_jun" id="" required="required"><br>
             <label for="ener_jul">Consumo de energia de julho</label>
-            <input type="number" name="ener_jul" id=""><br>
+            <input type="number" name="ener_jul" id="" required="required"><br>
             <label for="ener_ago">Consumo de energia de agosto</label>
-            <input type="number" name="ener_ago" id=""><br>
+            <input type="number" name="ener_ago" id="" required="required"><br>
             <label for="ener_set">Consumo de energia de setembro</label>
-            <input type="number" name="ener_set" id=""><br>
+            <input type="number" name="ener_set" id="" required="required"><br>
             <label for="ener_out">Consumo de energia de outubro</label>
-            <input type="number" name="ener_out" id=""><br>
+            <input type="number" name="ener_out" id="" required="required"><br>
             <label for="ener_nov">Consumo de energia de novembro</label>
-            <input type="number" name="ener_nov" id=""><br>
+            <input type="number" name="ener_nov" id="" required="required"><br>
             <label for="ener_dez">Consumo de energia de dezembro</label>
-            <input type="number" name="ener_dez" id=""><br>
+            <input type="number" name="ener_dez" id="" required="required"><br>
             </div>
 
             <input type="submit" value="ENVIAR">
@@ -105,7 +107,7 @@
             <p>Caso você possua um terreno ou área que deseja plantar, pode inserir a metragem ou adicionar um arquivo KML gerado no Google Earth.</p>
 
             <form action="{{url_for('company')}}" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" id="file" multiple="multiple" accept=".kml">
+                <input type="file" name="file" id="file" multiple="multiple" accept=".kml" required="required">
                 <input type="submit">
             </form>
             <div>
@@ -119,5 +121,7 @@
             {% endif %}
         </div>
     </main>
+
+    <script src="{{ url_for('static',filename='js/index.js') }}"></script>
 </body>
 </html>
