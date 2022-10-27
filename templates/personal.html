@@ -65,7 +65,7 @@
         <div class="results">
             {% if gasto %}
             <h2>Você produziu um total de <span>{{ gasto }}</span> toneladas de carbono.</h2>
-            <p>Para compensar essa emissão, você pode plntar <span>{{ arvore }}</span> árvores(s).</p>
+            <p>Para compensar essa emissão, você pode plantar <span>{{ arvore }}</span> árvores(s) ou gastar <span>{{ cred }}R$</span> em créditos de carbono.</p>
             <p>Caso você possua um terreno ou área que deseja plantar, pode inserir a metragem ou adicionar um arquivo KML gerado no Google Earth.</p>
 
             <form action="{{url_for('personalRes')}}" method="post" enctype="multipart/form-data">

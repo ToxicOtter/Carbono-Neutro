@@ -7,6 +7,7 @@ from fiona.drvsupport import supported_drivers
 from pyproj import Geod
 
 gasto_final = [0]
+cred_final = [0]
 
 app = Flask(__name__) #criação de uma instancia da classe, o nome é um indicativo para o Python olhar em busca de arquivos
 
@@ -22,6 +23,7 @@ def company():
     #Recebe o arquivo KML do usuario, calcula a area e retorna como parametro na renderização do HTML
     text=0
     gasto = round(gasto_final[0],2)
+    cred = round(cred_final[0],2)
 
     if (request.method == "POST"):
         file = request.files['file']
@@ -36,11 +38,12 @@ def company():
         poly = wkt.loads(str(my_map.loc[0,'geometry']))
         area = abs(geod.geometry_area_perimeter(poly)[0])
         text = area
-    return render_template("company.html",text=text,gasto=gasto)
+    return render_template("company.html",text=text,gasto=gasto, cred=round(cred,2))
 
 @app.route("/combustivel",methods=["GET","POST"])
 def combustivel():
     gasto = 0
+    cred = 0
 
     if (request.method == "POST"):
         for tipo, qtd in zip(request.form.getlist('tipo_combustivel'),request.form.getlist('qtd_combs')):
@@ -121,10 +124,12 @@ def combustivel():
     gasto_final.clear()
     gasto_final.append(gasto)
     arvore = int(gasto / 0.165105)
-    return render_template("company.html", gasto=gasto, arvore=arvore)
+    cred = gasto * 68.745
+    return render_template("company.html", gasto=round(gasto,2), arvore=arvore, cred=round(cred,2))
 
 @app.route("/personal",methods=["GET","POST"])
 def personal():
+    cred = 0
     gasto = 0
     med_elet = (0.1164 + 0.08200 + 0.0673 + 0.0764 + 0.0883 + 0.1491 + 0.1634 + 0.1743 + 0.1699 + 0.1786 + 0.1484 + 0.1029)/12
 
@@ -136,13 +141,15 @@ def personal():
     gasto_final.clear()
     gasto_final.append(gasto)
     arvore = int(gasto / 0.165105)
-    return render_template('personal.html',gasto=gasto, arvore=arvore)
+    cred = gasto * 68.745
+    return render_template('personal.html',gasto=round(gasto,2), arvore=arvore, cred=round(cred,2))
 
 @app.route("/personal-res",methods=["GET","POST"])
 def personalRes():
     #Recebe o arquivo KML do usuario, calcula a area e retorna como parametro na renderização do HTML
     text=0
     gasto = round(gasto_final[0],2)
+    cred = round(cred_final[0],2)
 
     if (request.method == "POST"):
         file = request.files['file']
@@ -157,7 +164,7 @@ def personalRes():
         poly = wkt.loads(str(my_map.loc[0,'geometry']))
         area = abs(geod.geometry_area_perimeter(poly)[0])
         text = area
-    return render_template("personal.html",text=text,gasto=gasto)
+    return render_template("personal.html",text=text,gasto=round(gasto,2), cred=round(cred,2))
 
 if __name__ == '__main__':
     app.run()
