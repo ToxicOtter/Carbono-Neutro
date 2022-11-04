@@ -55,7 +55,7 @@ def combustivel():
                 case "asfaltos":
                     gasto += float(qtd) * (3.389/ 1000)  # gasto = total kg co2 gerado pela queima de 1m3 de alcatrao
                 case "carvão_metalúrgico":
-                    gasto += float(qtd) * (2.543/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+                    gasto += float(qtd) * (2543/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
                 case "coque_petroleo":
                     gasto += float(qtd) * (3.563/ 1000)  # gasto = total kg co2 gerado pela queima de 1m3
                 case "etano":
@@ -101,6 +101,21 @@ def combustivel():
                 case "residuos":
                     gasto += float(qtd) * (1.161/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
 
+        for mov, qtd_mov in zip(request.form.getlist('combs_mov'),request.form.getlist('qtd_mov')):
+            match mov:
+                case "gas_aut_pura":
+                    gasto += float(qtd_mov) * (2.24/ 1000)  # gasto = total kg co2 gerado pela queima de 1l
+                case "etanol":
+                    gasto += float(qtd_mov) * (1.58/ 1000)  # gasto = total kg co2 gerado pela queima de 1l
+                case "biodiesel_b100":
+                    gasto += float(qtd_mov) * (2.46/ 1000)  # gasto = total kg co2 gerado pela queima de 1l
+                case "glp":
+                    gasto += float(qtd_mov) * (2.754/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+                case "gnv":
+                    gasto += float(qtd_mov) * (2.886/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+                case "diesel":
+                    gasto += float(qtd_mov) * (1.817/ 1000)  # gasto = total kg co2 gerado pela queima de 1ton
+
         gasto += float(request.form["co2"])*(1/ 1000)
         gasto += float(request.form["hfc_23"])*(12400/ 1000)
         gasto += float(request.form["n2o"])*(265/ 1000)
@@ -118,7 +133,6 @@ def combustivel():
         gasto += float(request.form["ener_out"])*0.1786
         gasto += float(request.form["ener_nov"])*0.1484
         gasto += float(request.form["ener_dez"])*0.1029
-
     
         gasto = round(gasto,2)
     gasto_final.clear()

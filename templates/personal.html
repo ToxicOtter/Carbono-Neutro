@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <a href="{{ url_for('main') }}">Carbono Zero</a>
+        <a href="#" class="logo">Carbono Zero</a>
         <div class="direita">
             <a href="{{ url_for('company') }}">PARA EMPRESA</a>
             <a href="{{ url_for('main') }}">PAGINA INICIAL</a>    
@@ -34,9 +34,7 @@
         <p>Para calcular a pegada de carbono individual, utilize o sistema a seguir, tendo como base o GHG Protocol Brasileiro, fornecido e divulgado pela FGV</p>
         <p>Para mais informações sobre o protocolo, acesse: </p>
         <br>
-        <img src="{{ url_for('static',filename='images/ghg.png') }}" alt="">
-        <br>
-        <a href="https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol">https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol</a>
+        <a href="https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol" target="_blank"><img src="{{ url_for('static',filename='images/ghg.png') }}" alt=""></a>
 
         </div>
         <form action="{{url_for('personal')}}" method="post" enctype="multipart/form-data" class="calcule">

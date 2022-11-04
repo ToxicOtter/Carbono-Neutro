@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <a href="#">Carbono Zero</a>
+        <a href="#" class="logo">Carbono Zero</a>
         <div class="direita">
             <a href="{{ url_for('personal') }}">PARA VOCÊ</a>
             <a href="{{ url_for('main') }}">PAGINA INICIAL</a>
@@ -25,9 +25,7 @@
         
             <p>Para mais informações sobre o protocolo, acesse: </p>
         <br>
-        <img src="{{ url_for('static',filename='images/ghg.png') }}" alt="">
-        <br>
-        <a href="https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol">https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol</a>
+        <a href="https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol" target="_blank"><img src="{{ url_for('static',filename='images/ghg.png') }}" alt=""></a>
         
         </div>
 
@@ -70,6 +68,25 @@
 
             <div id="incluir"></div>
             <button class="plus" type="button" onclick="adicionar()">+</button>
+            </div>
+
+            <h2>Escopo 1: Combustão Móvel</h2>
+            <p>Combustível utilizado pela empresa para transporte realizado pela empresa</p>
+            <div class="scope1">
+            <label for="combs_mov">Tipo de combustivel</label>
+            <select name="combs_mov" id="" required="required">
+                <option value="gas_aut_com">Gasolina automotiva (comercial)</option>
+                <option value="etanol">Etanol</option>
+                <option value="biodiesel_b100">Biodiesel B100</option>
+                <option value="glp">Gás Liquefeito de Petróleo</option>
+                <option value="gnv">Gás Natural Veicular</option>
+                <option value="diesel">Óleo Diesel (comercial)</option>
+            </select><br>
+            <label for="qtd_mov">Quantidade consumida</label>
+            <input type="number" name="qtd_mov" id="" step=".01" min="0" required="required">
+
+            <div id="incluirMovel"></div>
+            <button class="plus" type="button" onclick="adicionarMovel()">+</button>
             </div>
 
             <div>

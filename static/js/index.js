@@ -53,3 +53,55 @@ function adicionar(){
     pai.appendChild(div);
 }
 
+function adicionarMovel(){
+    const pai = document.getElementById("incluirMovel");
+    const div = document.createElement("div");
+    div.classList = "scope1";
+    const selectElements = ["gas_aut_com", "etanol", "biodiesel_b100","glp","gnv","diesel"];
+    const selectNames = ["Gasolina automotiva (comercial)","Etanol","Biodiesel B100","Gás Liquefeito de Petróleo","Gás Natural Veicular","Óleo Diesel (comercial)"]
+
+    const lista = document.createElement("select");
+    lista.required = "required";
+    lista.name = "combs_mov";
+    
+
+    for(var i = 0; i < selectElements.length;i++){
+        var option = document.createElement("option");
+        option.value = selectElements[i];
+        option.text = selectNames[i];
+        lista.appendChild(option);
+    }
+
+    const qtd = document.createElement("input");
+    qtd.type = "number";
+    qtd.name = "qtd_mov"; 
+    qtd.step=".01";
+    qtd.min="0"; 
+    qtd.required="required";
+
+    const del = document.createElement("button");
+    del.type = "button";
+    del.innerHTML = "Delete";
+    del.classList = "dlt_btn"
+    del.onclick = function excluir(){
+        this.parentNode.remove();
+    }
+
+    const lbl1 = document.createElement("label");
+    const lbl2 = document.createElement("label");
+
+    lbl1.for = "combs_mov";
+    lbl1.innerHTML = "Tipo de combustivel";
+    lbl2.for = "qtd_mov";
+    lbl2.innerHTML = "Quantidade consumida";
+
+    div.appendChild(lbl1);
+    div.appendChild(lista);
+    div.appendChild(document.createElement("br"));
+    div.appendChild(lbl2);
+    div.appendChild(qtd);
+    div.appendChild(document.createElement("br"));
+    div.appendChild(del);
+    pai.appendChild(div);
+}
+
