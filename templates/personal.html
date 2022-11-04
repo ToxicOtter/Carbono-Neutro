@@ -56,6 +56,21 @@
                 <label for="eletricidade">Qual seu gasto médio de eletricidade, em KWh/mês?</label>
                 <input type="number" name="eletricidade" id="" required="required">
             </div>
+
+            <div>
+            <label for="combs_mov">Qual o tipo principal de combustível do seu carro: </label>
+            <select name="combs_mov" id="" required="required">
+                <option value="gas_aut_com">Gasolina automotiva (comercial)</option>
+                <option value="etanol">Etanol</option>
+                <option value="biodiesel_b100">Biodiesel B100</option>
+                <option value="glp">Gás Liquefeito de Petróleo</option>
+                <option value="gnv">Gás Natural Veicular</option>
+                <option value="diesel">Óleo Diesel (comercial)</option>
+            </select><br>
+            <label for="qtd_mov">Quantidade consumida ao mês: </label>
+            <input type="number" name="qtd_mov" id="" step=".01" min="0" required="required">
+            </div>
+
             <div>
                 <fieldset>
                     <legend>Você recicla lixo?</legend>
