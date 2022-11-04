@@ -2,7 +2,7 @@ import os
 import geopandas as gpd
 from shapely.geometry import shape, Polygon
 from shapely import wkt
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from fiona.drvsupport import supported_drivers
 from pyproj import Geod
 
@@ -153,13 +153,21 @@ def personal():
         gasto += float(request.form["aviao"]) * 0.17
         gasto += float(request.form["botija"])*0.455
         gasto += float(request.form["condicionado"])*0.5
-        gasto += float(request.form["eletricidade"])*med_elet
+        gasto += (float(request.form["eletricidade"])*med_elet*12)/1000
+
+        if (request.form['recicla'] == "sim"):
+            gasto += 0.06
+        else:
+            gasto += 0.23 
+
+
     gasto_final.clear()
     gasto_final.append(gasto)
     arvore = int(gasto / 0.165105)
     cred = gasto * 68.745
     cred_final.clear()
     cred_final.append(cred)
+
     return render_template('personal.html',gasto=round(gasto,2), arvore=arvore, cred=round(cred,2))
 
 @app.route("/personal-res",methods=["GET","POST"])
@@ -183,6 +191,22 @@ def personalRes():
         area = abs(geod.geometry_area_perimeter(poly)[0])
         text = area
     return render_template("personal.html",text=text,gasto=round(gasto,2), cred=round(cred,2))
+
+###################### to solve problem with browser cache #########################
+@app.context_processor
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                 endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
+
+
 
 if __name__ == '__main__':
     app.run()

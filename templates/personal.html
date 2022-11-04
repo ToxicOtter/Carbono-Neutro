@@ -53,8 +53,21 @@
                 <input type="number" name="condicionado" id="" required="required">
             </div>
             <div>
-                <label for="eletricidade">Qual seu gasto médio de eletricidade, em KWh?</label>
+                <label for="eletricidade">Qual seu gasto médio de eletricidade, em KWh/mês?</label>
                 <input type="number" name="eletricidade" id="" required="required">
+            </div>
+            <div>
+                <fieldset>
+                    <legend>Você recicla lixo?</legend>
+                    <div>
+                        <label for="reciclaSim">Sim</label>
+                        <input type="radio" name="recicla" id="reciclaSim" value="sim" checked>
+                    </div>
+                    <div>
+                        <label for="reciclaNao">Não</label>
+                        <input type="radio" name="recicla" id="reciclaNao" value="nao">
+                    </div>
+                </fieldset>
             </div>
 
             <input type="submit" value="ENVIAR">
@@ -63,7 +76,8 @@
         <div class="results">
             {% if gasto %}
             <h2>Você produziu um total de <span>{{ gasto }}</span> toneladas de carbono.</h2>
-            <p>Para compensar essa emissão, você pode plantar <span>{{ arvore }}</span> árvores(s) ou gastar <span>{{ cred }}R$</span> em créditos de carbono.</p>
+            <p>Se for escolhida a compra de crédito, voce gastara: <span>{{ cred }}R$</span> comprando <span>{{ gasto }}</span> créditos de carbono. Caso escolha o plantio, você pode plantar <span>{{ arvore }}</span> árvores(s).</p>
+            <br>
             <p>Caso você possua um terreno ou área que deseja plantar, pode inserir a metragem ou adicionar um arquivo KML gerado no Google Earth.</p>
 
             <form action="{{url_for('personalRes')}}" method="post" enctype="multipart/form-data">
@@ -72,7 +86,7 @@
             </form>
             <div>
                 {% if text %}
-                <h2>{{ text }}</h2>
+                <h2>A metragem total do seu terreno é: {{ text }} m2</h2>
                 {% else %}
                 <h2>Nenhuma area</h2>
                 {% endif %}
