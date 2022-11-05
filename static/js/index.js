@@ -66,6 +66,7 @@ function resEmpresa(data){
     gasto.innerHTML = data['gasto'];
 
     divRes.style.visibility = "visible"
+    divRes.scrollIntoView();
 };
 
 function enviarDadosPessoa(){
@@ -106,8 +107,46 @@ function resPessoa(data){
     gasto2.innerHTML = data['gasto'];
 
     divRes.style.visibility = "visible"
+    divRes.scrollIntoView();
 };
 
+function enviarKML(){
+    const metro = document.getElementById("metro");
+    const metroDiv = document.getElementById("resKML");
+
+    const formDataKml = new FormData();
+    const files = document.getElementById("file");
+
+    if (files.value == ""){
+        alert("Insira um arquivo para continuar");
+        return false;
+    }else {
+        formDataKml.append("file", files.files[0]);
+    
+        const content =  {
+            method: "POST",
+            mode: "no-cors",
+            files: files.files[0],
+            body: formDataKml,
+        };
+    
+        fetch('/kml', content)
+        .then(response => response.json())  
+        .then(json => {
+            metro.innerHTML = json['area'];
+            metroDiv.style.visibility = "visible";
+        });
+    }
+}
+
+function empty() {
+    var x;
+    x = document.getElementById("file").value;
+    if (x == "") {
+        alert("Enter a Valid Roll Number");
+        return false;
+    };
+}
 
 function adicionar(){
     const pai = document.getElementById("incluir");

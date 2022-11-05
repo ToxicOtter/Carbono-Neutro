@@ -96,16 +96,12 @@
             <br>
             <p>Caso você possua um terreno ou área que deseja plantar, pode inserir a metragem ou adicionar um arquivo KML gerado no Google Earth.</p>
 
-            <form action="{{url_for('personalRes')}}" method="post" enctype="multipart/form-data">
+            <form action="" enctype="multipart/form-data"></form>
                 <input type="file" name="file" id="file" multiple="multiple" accept=".kml" required="required">
-                <input type="submit">
+                <input class="submit" onclick="enviarKML()" value="ENVIAR">
             </form>
-            <div>
-                {% if text %}
-                <h2>A metragem total do seu terreno é: {{ text }} m2</h2>
-                {% else %}
-                <h2>Nenhuma area</h2>
-                {% endif %}
+            <div id="resKML">
+                <p>A metragem total do seu terreno é: <span id="metro"></span> m2. </p>
             </div>
         </div>
     </main>

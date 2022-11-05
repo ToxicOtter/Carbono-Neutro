@@ -2,86 +2,48 @@ import os
 import geopandas as gpd
 from shapely.geometry import shape, Polygon
 from shapely import wkt
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, jsonify
 from fiona.drvsupport import supported_drivers
 from pyproj import Geod
 
-gasto_final = [0]
-cred_final = [0]
-
 app = Flask(__name__) #criação de uma instancia da classe, o nome é um indicativo para o Python olhar em busca de arquivos
 
-app.config['UPLOAD_FOLDER'] = r"/home/carbonoFree/.virtualenvs/my-virtualenv/site/files"
+app.config['UPLOAD_FOLDER'] = r"/home/carbonoFree/.virtualenvs/my-virtualenv/site/files" #caminho para salvar o arquivo kml
 
+###################### rotas usadas para as três páginas do site #########################
 
-@app.route("/")
+@app.route("/")  #roteamento da página principal
 def main():
     return render_template("index.html")
 
-@app.route("/personal",methods=["GET","POST"])
+@app.route("/personal",methods=["GET","POST"]) #roteamento da página para uso pessoal
 def personal():
     return render_template('personal.html')
 
-@app.route("/para-empresa", methods=["GET","POST"])
+@app.route("/para-empresa", methods=["GET","POST"]) #roteamento da página para empresas
 def company():
     return render_template("company.html")
-    #Recebe o arquivo KML do usuario, calcula a area e retorna como parametro na renderização do HTML
-    """ text=0
-    gasto = round(gasto_final[0],2)
-    cred = round(cred_final[0],2)
-
-    if (request.method == "POST"):
-        file = request.files['file']
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], "outro_teste.kml"))
-
-
-        supported_drivers['KML'] = 'rw'
-        my_map = gpd.read_file(r'/home/carbonoFree/.virtualenvs/my-virtualenv/site/files/outro_teste.kml', driver='KML')
-
-
-        geod = Geod(ellps="WGS84")
-        poly = wkt.loads(str(my_map.loc[0,'geometry']))
-        area = abs(geod.geometry_area_perimeter(poly)[0])
-        text = area """
     
 
-@app.route("/personal-res",methods=["GET","POST"])
-def personalRes():
-    #Recebe o arquivo KML do usuario, calcula a area e retorna como parametro na renderização do HTML
-    text=0
-    gasto = round(gasto_final[0],2)
-    cred = round(cred_final[0],2)
+###################### rotas usadas para os cálculos #########################
 
-    if (request.method == "POST"):
-        file = request.files['file']
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], "outro_teste.kml"))
+@app.route("/kml",methods=["POST"]) #rota usada para o cálculo da área pelo arquivo kml
+def kml():
+    file = request.files['file']
+    """file.save(os.path.join(app.config['UPLOAD_FOLDER'], "outro_teste.kml"))"""
 
 
-        supported_drivers['KML'] = 'rw'
-        my_map = gpd.read_file(r'/home/carbonoFree/.virtualenvs/my-virtualenv/site/files/outro_teste.kml', driver='KML')
+    supported_drivers['KML'] = 'rw'
+    """ my_map = gpd.read_file(r'/home/carbonoFree/.virtualenvs/my-virtualenv/site/files/outro_teste.kml', driver='KML') """
+    my_map = gpd.read_file(file, driver='KML')
 
+    geod = Geod(ellps="WGS84")
+    poly = wkt.loads(str(my_map.loc[0,'geometry']))
+    area = abs(geod.geometry_area_perimeter(poly)[0])
+    print(area)
+    return jsonify({"area":round(area,2)})
 
-        geod = Geod(ellps="WGS84")
-        poly = wkt.loads(str(my_map.loc[0,'geometry']))
-        area = abs(geod.geometry_area_perimeter(poly)[0])
-        text = area
-    return render_template("personal.html",text=text,gasto=round(gasto,2), cred=round(cred,2))
-
-###################### to solve problem with browser cache #########################
-@app.context_processor
-def override_url_for():
-    return dict(url_for=dated_url_for)
-
-def dated_url_for(endpoint, **values):
-    if endpoint == 'static':
-        filename = values.get('filename', None)
-        if filename:
-            file_path = os.path.join(app.root_path,
-                                 endpoint, filename)
-            values['q'] = int(os.stat(file_path).st_mtime)
-    return url_for(endpoint, **values)
-
-@app.route("/empresa",methods=["POST"])
+@app.route("/empresa",methods=["POST"]) # rota usada para o cálculo da empresa
 def empresa():
     gasto = 0
     cred = 0
@@ -181,21 +143,17 @@ def empresa():
     gasto += float(request.json["ener_dez"])*0.1029
     
     gasto = round(gasto,2)
-    gasto_final.clear()
-    gasto_final.append(gasto)
     arvore = int(gasto / 0.165105)
     cred = gasto * 68.745
-    cred_final.clear()
-    cred_final.append(cred)
 
     
     return {
-        "gasto": gasto,
+        "gasto": round(gasto,2),
         "cred": round(cred,2),
         "arvore": arvore
     }
 
-@app.route("/pessoa",methods=["GET","POST"])
+@app.route("/pessoa",methods=["GET","POST"]) # rota usada para o cálculo pessoal
 def pessoa():
     cred = 0
     gasto = 0
@@ -212,19 +170,31 @@ def pessoa():
         else:
             gasto += 0.23 
 
-
-    gasto_final.clear()
-    gasto_final.append(gasto)
     arvore = int(gasto / 0.165105)
     cred = gasto * 68.745
-    cred_final.clear()
-    cred_final.append(cred)
 
     return {
-        "gasto": gasto,
+        "gasto": round(gasto,2),
         "cred": round(cred,2),
         "arvore": arvore
     }
 
+
+###################### bloco usado para resolver problema com cache #########################
+@app.context_processor
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                 endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
+
+
+###################### bloco usado para manter o app rodando no servidor #########################
 if __name__ == '__main__':
     app.run()
