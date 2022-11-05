@@ -1,4 +1,112 @@
-const res = document.getElementsByClassName("results");
+$("#calcule").submit(function(e) {
+    e.preventDefault();
+});
+
+function enviarDadosEmpresa(){
+    let form = document.forms.calcule;
+    let formData = new FormData(form);
+
+    let combEstNome = formData.getAll('tipo_combustivel');
+    let combEstValor = formData.getAll('qtd_combs');
+
+    let combMvlNome = formData.getAll('combs_mov');
+    let combMvlValor = formData.getAll('qtd_mov');
+
+    let combEstacionario = {};
+    let combMovel = {};
+
+    for (let i=0;i<combEstNome.length;i++){
+        combEstacionario[i] = [combEstNome[i],combEstValor[i]];
+    };
+
+    for (let i=0;i<combMvlNome.length;i++){
+        combMovel[i] = [combMvlNome[i],combMvlValor[i]];
+    };
+
+    let dados = {
+        "combs_est": combEstacionario,
+        "combs_mvl": combMovel,
+        "co2": formData.get('co2'),
+        "hfc_23": formData.get('hfc_23'),
+        "n2o": formData.get('n2o'),
+        "ch4": formData.get('ch4'),
+        "ener_jan": formData.get("ener_jan"),
+        "ener_fev": formData.get("ener_fev"),
+        "ener_mar": formData.get("ener_mar"),
+        "ener_abr": formData.get("ener_abr"),
+        "ener_mai": formData.get("ener_mai"),
+        "ener_jun": formData.get("ener_jun"),
+        "ener_jul": formData.get("ener_jul"),
+        "ener_ago": formData.get("ener_ago"),
+        "ener_set": formData.get("ener_set"),
+        "ener_out": formData.get("ener_out"),
+        "ener_nov": formData.get("ener_nov"),
+        "ener_dez": formData.get("ener_dez")
+    };
+
+    $.ajax ({
+        type: "POST",
+        url: "/empresa",
+        data: JSON.stringify(dados),
+        contentType: "application/json",
+        success: function(resp){
+            resEmpresa(resp);
+        }
+    });
+};
+
+function resEmpresa(data){
+    let divRes = document.getElementById("results");
+    let cred = document.getElementById("cred");
+    let arvore = document.getElementById("arvore");
+    let gasto = document.getElementById("gasto");
+
+    cred.innerHTML = String(data['cred'])+"R$";
+    arvore.innerHTML = data['arvore'];
+    gasto.innerHTML = data['gasto'];
+
+    divRes.style.visibility = "visible"
+};
+
+function enviarDadosPessoa(){
+    let formP = document.forms.calcule;
+    let formPData = new FormData(formP);
+
+    let dadosP = {
+        "aviao": formPData.get("aviao"),
+        "botija": formPData.get("botija"),
+        "condicionado": formPData.get("condicionado"),
+        "eletricidade": formPData.get("eletricidade"),
+        "combs_mov": formPData.get("combs_mov"),
+        "qtd_mov": formPData.get("qtd_mov"),
+        "recicla": formPData.get("recicla")
+    };
+
+    $.ajax ({
+        type: "POST",
+        url: "/pessoa",
+        data: JSON.stringify(dadosP),
+        contentType: "application/json",
+        success: function(resp){
+            resPessoa(resp);
+        }
+    });
+};
+
+function resPessoa(data){
+    let divRes = document.getElementById("results");
+    let cred = document.getElementById("cred");
+    let arvore = document.getElementById("arvore");
+    let gasto = document.getElementById("gasto");
+    let gasto2 = document.getElementById("gasto2");
+
+    cred.innerHTML = String(data['cred'])+"R$";
+    arvore.innerHTML = data['arvore'];
+    gasto.innerHTML = data['gasto'];
+    gasto2.innerHTML = data['gasto'];
+
+    divRes.style.visibility = "visible"
+};
 
 
 function adicionar(){
