@@ -38,25 +38,41 @@ Ativação do *virtual enviromment*
     > venv\Scripts\activate
 ```
 
+#### Com o *virtual-env* funcionando, instale os pacotes necessários:
 
 Flask
 ```py
     pip install Flask
 ```
+Geopandas
+```py
+pip install geopandas
+```
+Shapely
+```py
+pip install shapely
+```
+Fiona
+```py
+pip install Fiona
+```
+Pyproj
+```py
+pip install pyproj
+```
 
-
+#### Observação: Encontramos dificuldades de instalar alguns dos pacotes por meio do pip. Caso o problema apareça, recomendamos baixar os pacotes por meio desse link:
+```py
+https://www.lfd.uci.edu/~gohlke/pythonlibs/
+```
 ## Como usar
+Com todos os requisitos instalados, basta executar o comando abaixo com o *virtual-env* aberto e abrir no navegador o caminho descrito.
+
+```py
+    flask --app server run
+```
 ## Autores
 
 - [@ToxicOtter](https://github.com/ToxicOtter)
 - [@IsaacKralik](https://github.com/IsaacKralik)
-
-
-## Etiquetas
-
-Adicione etiquetas de algum lugar, como: [shields.io](https://shields.io/)
-
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
-
+- [@João](https://www.linkedin.com/in/joão-cardoso-769a531b9/)
